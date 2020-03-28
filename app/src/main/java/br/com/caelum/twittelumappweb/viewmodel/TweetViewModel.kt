@@ -9,6 +9,7 @@ class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
 
     fun salva(tweet: Tweet) = repository.salva(tweet)
     fun lista()= repository.lista()
+    fun filtra(newText: String?) = repository.filtra(newText)
 
 
 }

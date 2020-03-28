@@ -7,15 +7,23 @@ class TweetRepository {
     fun salva(tweet: Tweet) {}
     fun lista(): List<Tweet> {
         return listOf(
-                Tweet("Tweet 1", null),
-                Tweet("Tweet 2", null),
-                Tweet("Tweet 3", null),
-                Tweet("Tweet 4", null),
-                Tweet("Tweet 5", null),
-                Tweet("Tweet 6", null),
-                Tweet("Tweet 7", null),
-                Tweet("Tweet 8", null)
+                Tweet("Corona virus é chato", null),
+                Tweet("Sdd de sair de casa", null),
+                Tweet("Qnd isso acabar, vou estar parecendo o Ragnar", null),
+                Tweet("Aula de sábado é maneira", null),
+                Tweet("Kotlin é show", null),
+                Tweet("A galera é quieta", null),
+                Tweet("Deu tela azul aqui", null),
+                Tweet("Tweet teste", null)
         )
+    }
+
+    fun filtra(newText: String?): List<Tweet> {
+        if (newText.isNullOrBlank()) {
+            return emptyList()
+        }
+        val todosOsTweets = lista()
+        return todosOsTweets.filter { tweet -> tweet.mensagem.contains(newText, ignoreCase = true) }
     }
 
 }
