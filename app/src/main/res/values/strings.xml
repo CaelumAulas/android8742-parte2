@@ -3,4 +3,9 @@
     <string name="lista">Lista</string>
     <string name="busca">Busca</string>
     <string name="mapa">Mapa</string>
+    <string name="entrar">Entrar</string>
+    <string name="criar_usuario">Criar Usuario</string>
+    <string name="nome">Nome</string>
+    <string name="username">Username</string>
+    <string name="senha">Senha</string>
 </resources>

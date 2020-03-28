@@ -3,4 +3,10 @@
     <string name="lista">List</string>
     <string name="busca">Search</string>
     <string name="mapa">Map</string>
+    <string name="entrar">Sign in</string>
+    <string name="criar_usuario">Create User</string>
+    <string name="nome">Name</string>
+    <string name="username">Username</string>
+    <string name="senha">Password</string>
+
 </resources>
