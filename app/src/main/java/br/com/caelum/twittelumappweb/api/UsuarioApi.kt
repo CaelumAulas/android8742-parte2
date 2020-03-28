@@ -16,10 +16,23 @@ class UsuarioApi(retrofit: Retrofit) {
 
     fun cria(
             usuario: Usuario,
-            funcaoSucesso: (Usuario) -> Unit,
+            funcaoSucesso: (Usuario) -> Unit, //high order fuction
             funcaoErro: (Throwable) -> Unit
     ) {
-        service.cria(usuario).enqueue(object : Callback<Usuario> {
+        service.cria(usuario).enqueue(callback(funcaoErro, funcaoSucesso))
+    }
+
+
+    fun loga(
+            usuario: Usuario,
+            funcaoSucesso: (Usuario) -> Unit, //high order fuction
+            funcaoErro: (Throwable) -> Unit
+    ) {
+        service.login(usuario).enqueue(callback(funcaoErro, funcaoSucesso))
+    }
+
+    private fun callback(funcaoErro: (Throwable) -> Unit, funcaoSucesso: (Usuario) -> Unit): Callback<Usuario> {
+        return object : Callback<Usuario> {
             override fun onFailure(call: Call<Usuario>, t: Throwable) {
                 funcaoErro(t)
             }
@@ -34,12 +47,15 @@ class UsuarioApi(retrofit: Retrofit) {
                     funcaoErro(erro)
                 }
             }
-        })
+        }
     }
 
     private interface UsuarioService {
 
         @POST("/usuario")
         fun cria(@Body usuario: Usuario): Call<Usuario>
+
+        @POST("/usuario/login")
+        fun login(@Body usuario: Usuario): Call<Usuario>
     }
 }

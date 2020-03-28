@@ -33,7 +33,7 @@ class UsuarioRepository(
 
 
     fun logar(usuario: Usuario) {
-        Log.i("usuario", "logado")
+        api.loga(usuario, funcaoSucesso = delegateSucesso(), funcaoErro = delegateErro())
     }
 
 }
