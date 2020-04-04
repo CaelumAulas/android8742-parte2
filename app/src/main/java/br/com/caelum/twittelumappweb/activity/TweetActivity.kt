@@ -1,7 +1,9 @@
 package br.com.caelum.twittelumappweb.activity
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -17,6 +19,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
 import br.com.caelum.twittelumappweb.R
 import br.com.caelum.twittelumappweb.decodificaParaBase64
+import br.com.caelum.twittelumappweb.gps.GPS
 import br.com.caelum.twittelumappweb.modelo.Tweet
 import br.com.caelum.twittelumappweb.viewmodel.TweetViewModel
 import br.com.caelum.twittelumappweb.viewmodel.ViewModelFactory
@@ -32,6 +35,9 @@ class TweetActivity : AppCompatActivity() {
 
     private var localFoto: String? = null
 
+    private val gps by lazy { GPS(this) }
+    private val accessFineLocation = Manifest.permission.ACCESS_FINE_LOCATION
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +45,23 @@ class TweetActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        if (checkSelfPermission(accessFineLocation) == PackageManager.PERMISSION_GRANTED) {
+            gps.busca()
+        } else {
+            requestPermissions(arrayOf(accessFineLocation), 456)
+        }
+
     }
 
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 456 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            gps.busca()
+        } else {
+            Toast.makeText(this, "Não conseguimos pegar sua localizacão sem a permissão", Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
@@ -105,7 +126,9 @@ class TweetActivity : AppCompatActivity() {
 
         val foto: String? = tweet_foto.tag as String?
 
-        return Tweet(mensagemDoTweet, foto)
+        val (latitude, longitude) = gps.getCoordenadas()
+
+        return Tweet(mensagemDoTweet, foto, latitude, longitude)
     }
 
 

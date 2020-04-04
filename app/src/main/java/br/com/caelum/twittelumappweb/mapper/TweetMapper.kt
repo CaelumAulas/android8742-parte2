@@ -7,7 +7,7 @@ import br.com.caelum.twittelumappweb.modelo.TweetDTO
 class TweetMapper(private val usuarioLocal: UsuarioLocal) {
 
     fun map(tweet: Tweet): TweetDTO {
-        return TweetDTO(tweet.mensagem, tweet.foto, usuarioLocal.getUsuario())
+        return TweetDTO(tweet.mensagem, tweet.foto, usuarioLocal.getUsuario(), tweet.latitude, tweet.longitude)
     }
 
 
