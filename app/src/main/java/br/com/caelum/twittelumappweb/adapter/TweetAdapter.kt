@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import br.com.caelum.twittelumappweb.Carregador
 import br.com.caelum.twittelumappweb.R
-import br.com.caelum.twittelumappweb.modelo.Tweet
+import br.com.caelum.twittelumappweb.modelo.TweetDTO
 import kotlinx.android.synthetic.main.tweet_item.view.*
 
-class TweetAdapter(private val tweets: List<Tweet>) : BaseAdapter() {
+class TweetAdapter(private val tweets: List<TweetDTO>) : BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
@@ -26,6 +26,8 @@ class TweetAdapter(private val tweets: List<Tweet>) : BaseAdapter() {
             view.item_foto.setImageBitmap(Carregador.decodifica(it))
         }
 
+
+        view.item_dono.text = tweet.dono.nome
 
         return view
 

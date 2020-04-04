@@ -1,10 +1,22 @@
 package br.com.caelum.twittelumappweb.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import br.com.caelum.twittelumappweb.api.TweetApi
 import br.com.caelum.twittelumappweb.mapper.TweetMapper
 import br.com.caelum.twittelumappweb.modelo.Tweet
+import br.com.caelum.twittelumappweb.modelo.TweetDTO
 
-class TweetRepository(private val api: TweetApi, private val mapper: TweetMapper) {
+class TweetRepository(
+        private val api: TweetApi,
+        private val mapper: TweetMapper
+) {
+
+    private val listaLiveData = MutableLiveData<List<TweetDTO>>()
+    private val erroLiveData = MutableLiveData<Throwable>()
+
+    fun getLista() = listaLiveData as LiveData<List<TweetDTO>>
+    fun getErro() = erroLiveData as LiveData<Throwable>
 
     fun salva(tweet: Tweet) {
         val tweetDto = mapper.map(tweet)
@@ -12,25 +24,19 @@ class TweetRepository(private val api: TweetApi, private val mapper: TweetMapper
     }
 
 
-    fun lista(): List<Tweet> {
-        return listOf(
-                Tweet("Corona virus é chato", null),
-                Tweet("Sdd de sair de casa", null),
-                Tweet("Qnd isso acabar, vou estar parecendo o Ragnar", null),
-                Tweet("Aula de sábado é maneira", null),
-                Tweet("Kotlin é show", null),
-                Tweet("A galera é quieta", null),
-                Tweet("Deu tela azul aqui", null),
-                Tweet("Tweet teste", null)
-        )
-    }
+    fun busca() = api.buscaLista(sucesso(), error())
 
-    fun filtra(newText: String?): List<Tweet> {
+    private fun error(): (Throwable) -> Unit = { erroLiveData.postValue(it) }
+
+    private fun sucesso(): (List<TweetDTO>) -> Unit = { listaLiveData.postValue(it) }
+
+    fun filtra(newText: String?): List<TweetDTO> {
         if (newText.isNullOrBlank()) {
             return emptyList()
         }
-        val todosOsTweets = lista()
-        return todosOsTweets.filter { tweet -> tweet.mensagem.contains(newText, ignoreCase = true) }
+        val todosOsTweets = listaLiveData.value
+        return todosOsTweets?.filter { tweet -> tweet.mensagem.contains(newText, ignoreCase = true) }
+                ?: emptyList()
     }
 
 }
