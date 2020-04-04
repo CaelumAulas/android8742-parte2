@@ -1,10 +1,17 @@
 package br.com.caelum.twittelumappweb.data
 
+import br.com.caelum.twittelumappweb.api.TweetApi
+import br.com.caelum.twittelumappweb.mapper.TweetMapper
 import br.com.caelum.twittelumappweb.modelo.Tweet
 
-class TweetRepository {
+class TweetRepository(private val api: TweetApi, private val mapper: TweetMapper) {
 
-    fun salva(tweet: Tweet) {}
+    fun salva(tweet: Tweet) {
+        val tweetDto = mapper.map(tweet)
+        api.salva(tweetDto)
+    }
+
+
     fun lista(): List<Tweet> {
         return listOf(
                 Tweet("Corona virus é chato", null),
