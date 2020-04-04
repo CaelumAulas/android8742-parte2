@@ -16,15 +16,11 @@ class TweetApi(retrofit: Retrofit) {
 
     fun salva(tweet: TweetDTO) {
         service.salva(tweet).enqueue(object : Callback<Tweet> {
-            override fun onFailure(call: Call<Tweet>, t: Throwable) {
-            }
-
-            override fun onResponse(call: Call<Tweet>, response: Response<Tweet>) {
-            }
+            override fun onFailure(call: Call<Tweet>, t: Throwable) {}
+            override fun onResponse(call: Call<Tweet>, response: Response<Tweet>) {}
         })
     }
-
-
+    
     fun buscaLista(
             delegateSucesso: (List<TweetDTO>) -> Unit,
             delegateErro: (Throwable) -> Unit

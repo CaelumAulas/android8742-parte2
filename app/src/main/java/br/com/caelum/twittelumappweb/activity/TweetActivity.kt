@@ -22,16 +22,14 @@ import br.com.caelum.twittelumappweb.decodificaParaBase64
 import br.com.caelum.twittelumappweb.gps.GPS
 import br.com.caelum.twittelumappweb.modelo.Tweet
 import br.com.caelum.twittelumappweb.viewmodel.TweetViewModel
-import br.com.caelum.twittelumappweb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_tweet.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 
 class TweetActivity : AppCompatActivity() {
 
-    private val viewModel: TweetViewModel by lazy {
-        ViewModelProviders.of(this, ViewModelFactory).get(TweetViewModel::class.java)
-    }
+    private val viewModel: TweetViewModel by viewModel()
 
     private var localFoto: String? = null
 

@@ -10,12 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import br.com.caelum.twittelumappweb.R
 import br.com.caelum.twittelumappweb.modelo.Usuario
 import br.com.caelum.twittelumappweb.viewmodel.UsuarioViewModel
-import br.com.caelum.twittelumappweb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
 
-    private val viewModel by lazy { ViewModelProvider(this, ViewModelFactory).get(UsuarioViewModel::class.java) }
+    private val viewModel: UsuarioViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

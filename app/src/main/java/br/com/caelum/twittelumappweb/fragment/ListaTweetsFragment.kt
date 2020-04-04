@@ -1,25 +1,21 @@
 package br.com.caelum.twittelumappweb.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import br.com.caelum.twittelumappweb.R
 import br.com.caelum.twittelumappweb.adapter.TweetAdapter
-import br.com.caelum.twittelumappweb.modelo.Tweet
 import br.com.caelum.twittelumappweb.viewmodel.TweetViewModel
-import br.com.caelum.twittelumappweb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_lista_tweets.view.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class ListaTweetsFragment : Fragment() {
 
-    private val viewModel by lazy { ViewModelProviders.of(activity!!, ViewModelFactory).get(TweetViewModel::class.java) }
+    private val viewModel: TweetViewModel by sharedViewModel()
 
     override fun onCreateView(
             inflater: LayoutInflater,

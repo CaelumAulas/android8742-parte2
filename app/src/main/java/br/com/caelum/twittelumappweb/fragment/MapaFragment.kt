@@ -1,17 +1,16 @@
 package br.com.caelum.twittelumappweb.fragment
 
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import br.com.caelum.twittelumappweb.modelo.TweetDTO
 import br.com.caelum.twittelumappweb.viewmodel.TweetViewModel
-import br.com.caelum.twittelumappweb.viewmodel.ViewModelFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class MapaFragment : SupportMapFragment() {
 
-    private val viewModel by lazy { ViewModelProvider(activity!!, ViewModelFactory)[TweetViewModel::class.java] }
+    private val viewModel: TweetViewModel by sharedViewModel()
 
     override fun onResume() {
         super.onResume()

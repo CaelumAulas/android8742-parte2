@@ -5,7 +5,10 @@ import br.com.caelum.twittelumappweb.data.TweetRepository
 import br.com.caelum.twittelumappweb.data.UsuarioRepository
 import br.com.caelum.twittelumappweb.modelo.Tweet
 
-class TweetViewModel(private val repository: TweetRepository, private val usuarioRepository: UsuarioRepository) : ViewModel() {
+class TweetViewModel(
+        private val repository: TweetRepository,
+        private val usuarioRepository: UsuarioRepository
+) : ViewModel() {
 
 
     fun busca() = repository.busca()
