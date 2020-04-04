@@ -38,11 +38,9 @@ class TweetActivity : AppCompatActivity() {
     private val gps by lazy { GPS(this) }
     private val accessFineLocation = Manifest.permission.ACCESS_FINE_LOCATION
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tweet)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (checkSelfPermission(accessFineLocation) == PackageManager.PERMISSION_GRANTED) {
@@ -52,7 +50,6 @@ class TweetActivity : AppCompatActivity() {
         }
 
     }
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
