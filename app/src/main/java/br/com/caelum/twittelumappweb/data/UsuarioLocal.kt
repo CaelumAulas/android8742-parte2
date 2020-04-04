@@ -15,7 +15,7 @@ class UsuarioLocal(context: Context) {
                 .putString("nome", usuario.nome)
                 .putString("username", usuario.username)
                 .putString("senha", usuario.senha)
-                .apply()
+                .commit()
     }
 
     fun getUsuario(): Usuario {
@@ -25,6 +25,8 @@ class UsuarioLocal(context: Context) {
         val id = sharedPreferences.getInt("id", 0)
         return Usuario(nome = nome, senha = senha, username = username, id = id)
     }
+
+    fun desloga() = sharedPreferences.edit().clear().commit()
 
 
 }

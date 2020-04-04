@@ -6,4 +6,8 @@ data class Usuario(
         val username: String,
         val id: Int = 0,
         val foto: String? = null
-)
+) {
+    fun isValid(): Boolean {
+        return id != 0
+    }
+}

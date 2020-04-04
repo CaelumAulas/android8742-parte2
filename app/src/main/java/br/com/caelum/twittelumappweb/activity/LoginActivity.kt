@@ -2,6 +2,7 @@ package br.com.caelum.twittelumappweb.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -21,8 +22,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         viewModel.getUsuario().observe(this, Observer {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            if (it.isValid()) {
+                Log.i("user", "$it")
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
         })
 
         viewModel.getErro().observe(this, Observer {

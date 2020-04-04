@@ -13,11 +13,21 @@ class UsuarioRepository(
     private val usuarioLiveData = MutableLiveData<Usuario>()
     private val erroLiveData = MutableLiveData<Throwable>()
 
+    init {
+        usuarioLiveData.postValue(usuarioLocal.getUsuario())
+    }
+
     fun getUsuario() = usuarioLiveData as LiveData<Usuario>
     fun getErro() = erroLiveData as LiveData<Throwable>
 
     fun cria(usuario: Usuario) {
         api.cria(usuario, funcaoSucesso = delegateSucesso(), funcaoErro = delegateErro())
+    }
+
+
+    fun desloga() {
+        usuarioLocal.desloga()
+        usuarioLiveData.postValue(usuarioLocal.getUsuario())
     }
 
     private fun delegateSucesso(): (Usuario) -> Unit = { usuario: Usuario ->

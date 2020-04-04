@@ -8,5 +8,5 @@
     <string name="nome">Name</string>
     <string name="username">Username</string>
     <string name="senha">Password</string>
-
+    <string name="sair">Exit</string>
 </resources>

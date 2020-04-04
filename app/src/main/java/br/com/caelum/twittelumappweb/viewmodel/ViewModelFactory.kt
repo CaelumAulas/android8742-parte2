@@ -24,7 +24,7 @@ object ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
     private val usuarioRepository by lazy { UsuarioRepository(usuarioApi, usuarioLocal) }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = when (modelClass) {
-        TweetViewModel::class.java -> TweetViewModel(tweetRepository) as T
+        TweetViewModel::class.java -> TweetViewModel(tweetRepository, usuarioRepository) as T
         UsuarioViewModel::class.java -> UsuarioViewModel(usuarioRepository) as T
         else -> throw  Exception()
     }
