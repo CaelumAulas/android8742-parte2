@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewModel.busca()
+
         bottomNavigation.setOnNavigationItemSelectedListener { itemSelecionado ->
             when (itemSelecionado.itemId) {
                 R.id.menuLista -> exibe(ListaTweetsFragment())
